@@ -1,0 +1,154 @@
+﻿@page "/search_artist"
+@inject HttpClient Http
+@using System.Text.Json
+
+
+<h3>Search Artist</h3>
+
+<div class="input-group rounded">
+    <input id="artist_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+           aria-describedby="search-addon" @bind="@CurrentValue" @oninput="@((e) => { CurrentValue=(string)e.Value;})" />
+    <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchClick">
+        <i class="oi oi-magnifying-glass"></i>
+    </button>
+</div>
+
+<h1>@CurrentValue</h1>
+<h2>@errormessage</h2>
+<p>@lyrics</p>
+
+@if (data == null)
+{
+    <p><em>Loading data...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in data)
+            {
+                <tr>
+                    <td>@d.strArtist</td>
+                    <td>@d.intBornYear</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+@code {
+    string BaseSearchArtistQueryURI = "https://api.deezer.com/search/artist?q=";
+    private string errormessage = "Nothing";
+    private string CurrentValue { get; set; } = "blazor";
+
+    public string lyrics { get; set; } = "yo";
+
+
+    public class Artist
+    {
+        public string idArtist { get; set; }
+        public string strArtist { get; set; }
+        public object strArtistStripped { get; set; }
+        public string strArtistAlternate { get; set; }
+        public string strLabel { get; set; }
+        public string idLabel { get; set; }
+        public string intFormedYear { get; set; }
+        public string intBornYear { get; set; }
+        public object intDiedYear { get; set; }
+        public object strDisbanded { get; set; }
+        public string strStyle { get; set; }
+        public string strGenre { get; set; }
+        public string strMood { get; set; }
+        public string strWebsite { get; set; }
+        public string strFacebook { get; set; }
+        public string strTwitter { get; set; }
+        public string strBiographyEN { get; set; }
+        public string strBiographyDE { get; set; }
+        public string strBiographyFR { get; set; }
+        public string strBiographyCN { get; set; }
+        public string strBiographyIT { get; set; }
+        public string strBiographyJP { get; set; }
+        public string strBiographyRU { get; set; }
+        public string strBiographyES { get; set; }
+        public string strBiographyPT { get; set; }
+        public string strBiographySE { get; set; }
+        public string strBiographyNL { get; set; }
+        public string strBiographyHU { get; set; }
+        public string strBiographyNO { get; set; }
+        public string strBiographyIL { get; set; }
+        public string strBiographyPL { get; set; }
+        public string strGender { get; set; }
+        public string intMembers { get; set; }
+        public string strCountry { get; set; }
+        public string strCountryCode { get; set; }
+        public string strArtistThumb { get; set; }
+        public string strArtistLogo { get; set; }
+        public string strArtistClearart { get; set; }
+        public string strArtistWideThumb { get; set; }
+        public string strArtistFanart { get; set; }
+        public string strArtistFanart2 { get; set; }
+        public string strArtistFanart3 { get; set; }
+        public string strArtistFanart4 { get; set; }
+        public string strArtistBanner { get; set; }
+        public string strMusicBrainzID { get; set; }
+        public object strISNIcode { get; set; }
+        public string strLastFMChart { get; set; }
+        public string intCharted { get; set; }
+        public string strLocked { get; set; }
+    }
+
+
+    public List<Artist> data { get; set; }
+    public int total { get; set; }
+    public string next { get; set; }
+    public Artist artist { get; set; }
+
+
+    // lifecycle method
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            // CORS needs to be enabled for Web API endpoint
+            HttpResponseMessage response = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
+            string dtls = await response.Content.ReadAsStringAsync();
+            lyrics = dtls;
+        }
+        catch (Exception e)
+        {
+            errormessage = e.Message;
+        }
+
+    }
+
+    protected async Task SearchClick()
+    {
+        try
+        {
+            errormessage = CurrentValue;
+            @*            data = await Http.GetFromJsonAsync<List<Artist>>("https://www.theaudiodb.com/api/v1/json/1/search.php?s=coldplay");
+            *@
+            var lyricss = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
+
+
+        }
+        catch (Exception e)
+        {
+            errormessage = e.Message;
+        }
+
+    }
+
+
+
+}
