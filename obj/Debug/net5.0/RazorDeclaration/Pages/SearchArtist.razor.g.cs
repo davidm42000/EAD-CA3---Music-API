@@ -10,7 +10,6 @@ namespace EAD_CA3___Music_API.Pages
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
 #line 1 "C:\Users\david\Downloads\EAD CA3 - Music API\_Imports.razor"
@@ -83,8 +82,29 @@ using EAD_CA3___Music_API.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+#line 4 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
 using System.Text.Json;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+using System.Text.Json.Serialization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+using System.Threading.Tasks;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+using Newtonsoft.Json;
 
 #line default
 #line hidden
@@ -98,123 +118,137 @@ using System.Text.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 48 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
-       
-    string BaseSearchArtistQueryURI = "https://api.deezer.com/search/artist?q=";
-    private string errormessage = "Nothing";
-    private string CurrentValue { get; set; } = "blazor";
-
-    public string lyrics { get; set; } = "yo";
-
-
-    public class Artist
-    {
-        public string idArtist { get; set; }
-        public string strArtist { get; set; }
-        public object strArtistStripped { get; set; }
-        public string strArtistAlternate { get; set; }
-        public string strLabel { get; set; }
-        public string idLabel { get; set; }
-        public string intFormedYear { get; set; }
-        public string intBornYear { get; set; }
-        public object intDiedYear { get; set; }
-        public object strDisbanded { get; set; }
-        public string strStyle { get; set; }
-        public string strGenre { get; set; }
-        public string strMood { get; set; }
-        public string strWebsite { get; set; }
-        public string strFacebook { get; set; }
-        public string strTwitter { get; set; }
-        public string strBiographyEN { get; set; }
-        public string strBiographyDE { get; set; }
-        public string strBiographyFR { get; set; }
-        public string strBiographyCN { get; set; }
-        public string strBiographyIT { get; set; }
-        public string strBiographyJP { get; set; }
-        public string strBiographyRU { get; set; }
-        public string strBiographyES { get; set; }
-        public string strBiographyPT { get; set; }
-        public string strBiographySE { get; set; }
-        public string strBiographyNL { get; set; }
-        public string strBiographyHU { get; set; }
-        public string strBiographyNO { get; set; }
-        public string strBiographyIL { get; set; }
-        public string strBiographyPL { get; set; }
-        public string strGender { get; set; }
-        public string intMembers { get; set; }
-        public string strCountry { get; set; }
-        public string strCountryCode { get; set; }
-        public string strArtistThumb { get; set; }
-        public string strArtistLogo { get; set; }
-        public string strArtistClearart { get; set; }
-        public string strArtistWideThumb { get; set; }
-        public string strArtistFanart { get; set; }
-        public string strArtistFanart2 { get; set; }
-        public string strArtistFanart3 { get; set; }
-        public string strArtistFanart4 { get; set; }
-        public string strArtistBanner { get; set; }
-        public string strMusicBrainzID { get; set; }
-        public object strISNIcode { get; set; }
-        public string strLastFMChart { get; set; }
-        public string intCharted { get; set; }
-        public string strLocked { get; set; }
-    }
+#line 80 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+           
+        private string developerErrorMessage = "Nothing";
+        private string errorMessage = "Nothing";
+        private string CurrentValue { get; set; } = "blazor";
+        private string SongValue { get; set; } 
 
 
-    public List<Artist> data { get; set; }
-    public int total { get; set; }
-    public string next { get; set; }
-    public Artist artist { get; set; }
+        public string? lyrics { get; set; }
+        public string? artistName2 { get; set; } = "NO yo";
 
 
-    // lifecycle method
-    protected override async Task OnInitializedAsync()
-    {
-
-        try
+        public class Artist
         {
-            // CORS needs to be enabled for Web API endpoint
-            HttpResponseMessage response = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
-            string dtls = await response.Content.ReadAsStringAsync();
-            lyrics = dtls;
-        }
-        catch (Exception e)
-        {
-            errormessage = e.Message;
+            public string idArtist { get; set; }
+            public string strArtist { get; set; }
+            public object strArtistStripped { get; set; }
+            public string strArtistAlternate { get; set; }
+            public string strLabel { get; set; }
+            public string idLabel { get; set; }
+            public string intFormedYear { get; set; }
+            public string intBornYear { get; set; }
+            public object intDiedYear { get; set; }
+            public object strDisbanded { get; set; }
+            public string strStyle { get; set; }
+            public string strGenre { get; set; }
+            public string strMood { get; set; }
+            public string strWebsite { get; set; }
+            public string strFacebook { get; set; }
+            public string strTwitter { get; set; }
+            public string strBiographyEN { get; set; }
+            public string strBiographyDE { get; set; }
+            public string strBiographyFR { get; set; }
+            public string strBiographyCN { get; set; }
+            public string strBiographyIT { get; set; }
+            public string strBiographyJP { get; set; }
+            public string strBiographyRU { get; set; }
+            public string strBiographyES { get; set; }
+            public string strBiographyPT { get; set; }
+            public string strBiographySE { get; set; }
+            public string strBiographyNL { get; set; }
+            public string strBiographyHU { get; set; }
+            public string strBiographyNO { get; set; }
+            public string strBiographyIL { get; set; }
+            public string strBiographyPL { get; set; }
+            public string strGender { get; set; }
+            public string intMembers { get; set; }
+            public string strCountry { get; set; }
+            public string strCountryCode { get; set; }
+            public string strArtistThumb { get; set; }
+            public string strArtistLogo { get; set; }
+            public string strArtistClearart { get; set; }
+            public string strArtistWideThumb { get; set; }
+            public string strArtistFanart { get; set; }
+            public string strArtistFanart2 { get; set; }
+            public string strArtistFanart3 { get; set; }
+            public string strArtistFanart4 { get; set; }
+            public string strArtistBanner { get; set; }
+            public string strMusicBrainzID { get; set; }
+            public object strISNIcode { get; set; }
+            public string strLastFMChart { get; set; }
+            public string intCharted { get; set; }
+            public string strLocked { get; set; }
         }
 
-    }
-
-    protected async Task SearchClick()
-    {
-        try
+        public class AllArtists
         {
-            errormessage = CurrentValue;
-            
+            public List<Artist> Artists { get; set; }
+        }
+
+        private AllArtists allArtists2;
+
+
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class Lyrics
+        {
+            public string? lyrics { get; set; }
+        }
+
+        public Lyrics? l1;
+
+        // lifecycle method
+        protected async Task SearchLyrics()
+        {
+
+            try
+            {
+                using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + CurrentValue + "/" + SongValue);
+                l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
+                lyrics = l1.lyrics;
+            }
+            catch (Exception e)
+            {
+                developerErrorMessage = e.Message;
+            }
+
+        }
+
+        protected async Task SearchClick()
+        {
+            try
+            {
+
+                HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + CurrentValue);
+                string dtls = await response.Content.ReadAsStringAsync();
+
+                AllArtists allArtists = JsonConvert.DeserializeObject<AllArtists>(dtls);
+
+                allArtists2 = allArtists;
+
+                artistName2 = allArtists2.Artists[0].strArtist;
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                developerErrorMessage = e.Message;
+                Console.WriteLine(developerErrorMessage);
+                errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
+
+            }
+
+        }
+    
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 140 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
-              
-            var lyricss = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
-
-
-        }
-        catch (Exception e)
-        {
-            errormessage = e.Message;
-        }
-
-    }
-
-
-
-
-#line default
-#line hidden
-#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager UriHelper { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
     }
 }

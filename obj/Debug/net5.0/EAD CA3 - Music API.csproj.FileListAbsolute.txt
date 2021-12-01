@@ -631,3 +631,7 @@ C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music AP
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.dll
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\ref\EAD CA3 - Music API.dll
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.pdb
+C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.csproj.AssemblyReference.cache
+C:\Users\david\Downloads\EAD CA3 - Music API\bin\Debug\net5.0\wwwroot\_framework\Newtonsoft.Json.dll.gz
+C:\Users\david\Downloads\EAD CA3 - Music API\bin\Debug\net5.0\wwwroot\_framework\Newtonsoft.Json.dll
+C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\build-gz\ENaaE45q.gz

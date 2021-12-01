@@ -1,6 +1,12 @@
 ﻿@page "/search_artist"
 @inject HttpClient Http
-@using System.Text.Json
+@inject NavigationManager UriHelper
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+@using System.Threading.Tasks;
+@using Newtonsoft.Json;
+
+
 
 
 <h3>Search Artist</h3>
@@ -13,44 +19,74 @@
     </button>
 </div>
 
-<h1>@CurrentValue</h1>
-<h2>@errormessage</h2>
-<p>@lyrics</p>
+<h2>@errorMessage</h2>
 
-@if (data == null)
+@if (allArtists2 == null)
 {
-    <p><em>Loading data...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var d in data)
-            {
-                <tr>
-                    <td>@d.strArtist</td>
-                    <td>@d.intBornYear</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    @try
+    {
+        @for (int i = 0; i < allArtists2.Artists.Count(); i++)
+        {
+
+            <img style="height: 10em" src="@allArtists2.Artists[i].strArtistWideThumb">
+            <br />
+            <h3>@allArtists2.Artists[i].strArtist</h3>
+        }
+
+    }
+    catch (Exception e)
+    {
+        developerErrorMessage = e.Message;
+        Console.WriteLine(developerErrorMessage);
+        errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
+
+    }
+
+    <h4>Search Song Lyrics</h4>
+
+    <div class="input-group rounded" style="width: 30em">
+        <input id="lyrics_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+               aria-describedby="search-addon" @bind="@SongValue" @oninput="@((e) => { SongValue = (string)e.Value; })" />
+        <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchLyrics">
+            <i class="oi oi-magnifying-glass"></i>
+        </button>
+    </div>
+
+    @if (lyrics == null)
+    {
+    }
+    else
+    {
+        try
+        {
+            <p>@lyrics</p>
+
+        }
+        catch (Exception e)
+        {
+            developerErrorMessage = e.Message;
+            Console.WriteLine(developerErrorMessage);
+
+        }
+    }
 }
 
 
 
 
 @code {
-    string BaseSearchArtistQueryURI = "https://api.deezer.com/search/artist?q=";
-    private string errormessage = "Nothing";
+    private string developerErrorMessage = "Nothing";
+    private string errorMessage = "Nothing";
     private string CurrentValue { get; set; } = "blazor";
+    private string SongValue { get; set; }
 
-    public string lyrics { get; set; } = "yo";
+
+    public string? lyrics { get; set; }
+    public string? artistName2 { get; set; } = "NO yo";
 
 
     public class Artist
@@ -106,27 +142,35 @@ else
         public string strLocked { get; set; }
     }
 
+    public class AllArtists
+    {
+        public List<Artist> Artists { get; set; }
+    }
 
-    public List<Artist> data { get; set; }
-    public int total { get; set; }
-    public string next { get; set; }
-    public Artist artist { get; set; }
+    private AllArtists allArtists2;
 
+
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class Lyrics
+    {
+        public string? lyrics { get; set; }
+    }
+
+    public Lyrics? l1;
 
     // lifecycle method
-    protected override async Task OnInitializedAsync()
+    protected async Task SearchLyrics()
     {
 
         try
         {
-            // CORS needs to be enabled for Web API endpoint
-            HttpResponseMessage response = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
-            string dtls = await response.Content.ReadAsStringAsync();
-            lyrics = dtls;
+            using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + CurrentValue + "/" + SongValue);
+            l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
+            lyrics = l1.lyrics;
         }
         catch (Exception e)
         {
-            errormessage = e.Message;
+            developerErrorMessage = e.Message;
         }
 
     }
@@ -135,20 +179,27 @@ else
     {
         try
         {
-            errormessage = CurrentValue;
-            @*            data = await Http.GetFromJsonAsync<List<Artist>>("https://www.theaudiodb.com/api/v1/json/1/search.php?s=coldplay");
-            *@
-            var lyricss = await Http.GetAsync("https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime.");
+
+            HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + CurrentValue);
+            string dtls = await response.Content.ReadAsStringAsync();
+
+            AllArtists allArtists = JsonConvert.DeserializeObject<AllArtists>(dtls);
+
+            allArtists2 = allArtists;
+
+            artistName2 = allArtists2.Artists[0].strArtist;
+
+
 
 
         }
         catch (Exception e)
         {
-            errormessage = e.Message;
+            developerErrorMessage = e.Message;
+            Console.WriteLine(developerErrorMessage);
+            errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
+
         }
 
     }
-
-
-
 }
