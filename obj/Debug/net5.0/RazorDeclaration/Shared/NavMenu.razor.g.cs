@@ -90,7 +90,7 @@ using EAD_CA3___Music_API.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Users\david\Downloads\EAD CA3 - Music API\Shared\NavMenu.razor"
+#line 23 "C:\Users\david\Downloads\EAD CA3 - Music API\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

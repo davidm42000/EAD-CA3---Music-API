@@ -403,8 +403,6 @@ C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music AP
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.RazorComponent.input.cache
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\App.razor.g.cs
-C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
-C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\Pages\SearchArtist.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
@@ -417,8 +415,6 @@ C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music AP
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.TagHelpers.output.cache
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\EAD CA3 - Music API.RazorCoreGenerate.cache
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\App.razor.g.cs
-C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\Pages\Counter.razor.g.cs
-C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\Pages\FetchData.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\Pages\Index.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\Pages\SearchArtist.razor.g.cs
 C:\Users\david\Downloads\EAD CA3 - Music API\obj\Debug\net5.0\Razor\Shared\SurveyPrompt.razor.g.cs

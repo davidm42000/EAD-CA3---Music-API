@@ -118,8 +118,9 @@ using Newtonsoft.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 91 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+#line 95 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
        
+
     private string developerErrorMessage = "Nothing";
     private string errorMessage { get; set; }
     private string ArtistValue { get; set; } = "blazor";
