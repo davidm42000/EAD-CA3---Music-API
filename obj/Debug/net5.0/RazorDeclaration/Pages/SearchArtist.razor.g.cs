@@ -118,132 +118,135 @@ using Newtonsoft.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 80 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
-           
-        private string developerErrorMessage = "Nothing";
-        private string errorMessage = "Nothing";
-        private string CurrentValue { get; set; } = "blazor";
-        private string SongValue { get; set; } 
+#line 91 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+       
+    private string developerErrorMessage = "Nothing";
+    private string errorMessage { get; set; }
+    private string ArtistValue { get; set; } = "blazor";
+    private string SongValue { get; set; }
 
 
+    public string? lyrics { get; set; }
+    public string? artistName2 { get; set; } = "NO yo";
+
+
+    public class Artist
+    {
+        public string idArtist { get; set; }
+        public string strArtist { get; set; }
+        public object strArtistStripped { get; set; }
+        public string strArtistAlternate { get; set; }
+        public string strLabel { get; set; }
+        public string idLabel { get; set; }
+        public string intFormedYear { get; set; }
+        public string intBornYear { get; set; }
+        public object intDiedYear { get; set; }
+        public object strDisbanded { get; set; }
+        public string strStyle { get; set; }
+        public string strGenre { get; set; }
+        public string strMood { get; set; }
+        public string strWebsite { get; set; }
+        public string strFacebook { get; set; }
+        public string strTwitter { get; set; }
+        public string strBiographyEN { get; set; }
+        public string strBiographyDE { get; set; }
+        public string strBiographyFR { get; set; }
+        public string strBiographyCN { get; set; }
+        public string strBiographyIT { get; set; }
+        public string strBiographyJP { get; set; }
+        public string strBiographyRU { get; set; }
+        public string strBiographyES { get; set; }
+        public string strBiographyPT { get; set; }
+        public string strBiographySE { get; set; }
+        public string strBiographyNL { get; set; }
+        public string strBiographyHU { get; set; }
+        public string strBiographyNO { get; set; }
+        public string strBiographyIL { get; set; }
+        public string strBiographyPL { get; set; }
+        public string strGender { get; set; }
+        public string intMembers { get; set; }
+        public string strCountry { get; set; }
+        public string strCountryCode { get; set; }
+        public string strArtistThumb { get; set; }
+        public string strArtistLogo { get; set; }
+        public string strArtistClearart { get; set; }
+        public string strArtistWideThumb { get; set; }
+        public string strArtistFanart { get; set; }
+        public string strArtistFanart2 { get; set; }
+        public string strArtistFanart3 { get; set; }
+        public string strArtistFanart4 { get; set; }
+        public string strArtistBanner { get; set; }
+        public string strMusicBrainzID { get; set; }
+        public object strISNIcode { get; set; }
+        public string strLastFMChart { get; set; }
+        public string intCharted { get; set; }
+        public string strLocked { get; set; }
+    }
+
+    public class AllArtists
+    {
+        public List<Artist> Artists { get; set; }
+    }
+
+    private AllArtists allArtists2;
+
+
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class Lyrics
+    {
         public string? lyrics { get; set; }
-        public string? artistName2 { get; set; } = "NO yo";
+    }
 
+    public Lyrics? l1;
 
-        public class Artist
+    // lifecycle method
+    protected async Task SearchLyrics()
+    {
+
+        try
         {
-            public string idArtist { get; set; }
-            public string strArtist { get; set; }
-            public object strArtistStripped { get; set; }
-            public string strArtistAlternate { get; set; }
-            public string strLabel { get; set; }
-            public string idLabel { get; set; }
-            public string intFormedYear { get; set; }
-            public string intBornYear { get; set; }
-            public object intDiedYear { get; set; }
-            public object strDisbanded { get; set; }
-            public string strStyle { get; set; }
-            public string strGenre { get; set; }
-            public string strMood { get; set; }
-            public string strWebsite { get; set; }
-            public string strFacebook { get; set; }
-            public string strTwitter { get; set; }
-            public string strBiographyEN { get; set; }
-            public string strBiographyDE { get; set; }
-            public string strBiographyFR { get; set; }
-            public string strBiographyCN { get; set; }
-            public string strBiographyIT { get; set; }
-            public string strBiographyJP { get; set; }
-            public string strBiographyRU { get; set; }
-            public string strBiographyES { get; set; }
-            public string strBiographyPT { get; set; }
-            public string strBiographySE { get; set; }
-            public string strBiographyNL { get; set; }
-            public string strBiographyHU { get; set; }
-            public string strBiographyNO { get; set; }
-            public string strBiographyIL { get; set; }
-            public string strBiographyPL { get; set; }
-            public string strGender { get; set; }
-            public string intMembers { get; set; }
-            public string strCountry { get; set; }
-            public string strCountryCode { get; set; }
-            public string strArtistThumb { get; set; }
-            public string strArtistLogo { get; set; }
-            public string strArtistClearart { get; set; }
-            public string strArtistWideThumb { get; set; }
-            public string strArtistFanart { get; set; }
-            public string strArtistFanart2 { get; set; }
-            public string strArtistFanart3 { get; set; }
-            public string strArtistFanart4 { get; set; }
-            public string strArtistBanner { get; set; }
-            public string strMusicBrainzID { get; set; }
-            public object strISNIcode { get; set; }
-            public string strLastFMChart { get; set; }
-            public string intCharted { get; set; }
-            public string strLocked { get; set; }
+            using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + ArtistValue + "/" + SongValue);
+            l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
+            lyrics = l1.lyrics;
+        }
+        catch (Exception e)
+        {
+            developerErrorMessage = e.Message;
         }
 
-        public class AllArtists
-        {
-            public List<Artist> Artists { get; set; }
-        }
+    }
 
-        private AllArtists allArtists2;
-
-
-        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-        public class Lyrics
-        {
-            public string? lyrics { get; set; }
-        }
-
-        public Lyrics? l1;
-
-        // lifecycle method
-        protected async Task SearchLyrics()
+    protected async Task SearchArtists()
+    {
+        try
         {
 
-            try
+            HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + ArtistValue);
+            string dtls = await response.Content.ReadAsStringAsync();
+
+            AllArtists allArtists = JsonConvert.DeserializeObject<AllArtists>(dtls);
+
+            allArtists2 = allArtists;
+
+            artistName2 = allArtists2.Artists[0].strArtist;
+
+
+            if (allArtists != null)
             {
-                using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + CurrentValue + "/" + SongValue);
-                l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
-                lyrics = l1.lyrics;
-            }
-            catch (Exception e)
-            {
-                developerErrorMessage = e.Message;
+                errorMessage = " ";
             }
 
-        }
 
-        protected async Task SearchClick()
+        }
+        catch (Exception e)
         {
-            try
-            {
-
-                HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + CurrentValue);
-                string dtls = await response.Content.ReadAsStringAsync();
-
-                AllArtists allArtists = JsonConvert.DeserializeObject<AllArtists>(dtls);
-
-                allArtists2 = allArtists;
-
-                artistName2 = allArtists2.Artists[0].strArtist;
-
-
-
-
-            }
-            catch (Exception e)
-            {
-                developerErrorMessage = e.Message;
-                Console.WriteLine(developerErrorMessage);
-                errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
-
-            }
+            developerErrorMessage = e.Message;
+            Console.WriteLine(developerErrorMessage);
+            errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
 
         }
-    
+
+    }
 
 #line default
 #line hidden

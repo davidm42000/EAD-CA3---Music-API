@@ -13,13 +13,13 @@
 
 <div class="input-group rounded">
     <input id="artist_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-           aria-describedby="search-addon" @bind="@CurrentValue" @oninput="@((e) => { CurrentValue=(string)e.Value;})" />
-    <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchClick">
+           aria-describedby="search-addon" @bind="@ArtistValue" @oninput="@((e) => { ArtistValue=(string)e.Value;})" />
+    <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchArtists">
         <i class="oi oi-magnifying-glass"></i>
     </button>
 </div>
 
-<h2>@errorMessage</h2>
+<h5 style="color: red">@errorMessage</h5>
 
 @if (allArtists2 == null)
 {
@@ -31,10 +31,50 @@ else
     {
         @for (int i = 0; i < allArtists2.Artists.Count(); i++)
         {
+            <div>
+                <h3>@allArtists2.Artists[i].strArtist</h3>
+                <img style="height: 15em; width: 30em;" src="@allArtists2.Artists[i].strArtistWideThumb">
+                <br />
+                <br />
+                <h5>Year Formed - @allArtists2.Artists[i].intFormedYear</h5>
+                <h5>Genre - @allArtists2.Artists[i].strGenre</h5>
+                <h5>Label - @allArtists2.Artists[i].strLabel</h5>
+                <br />
+                <br />
+                <h5>About Them: </h5>
+                <h5>@allArtists2.Artists[i].strBiographyEN</h5>
+            </div>
 
-            <img style="height: 10em" src="@allArtists2.Artists[i].strArtistWideThumb">
             <br />
-            <h3>@allArtists2.Artists[i].strArtist</h3>
+            <br />
+
+            <h4>Search Song Lyrics For This Artist</h4>
+
+            <div class="input-group rounded" style="width: 30em">
+                <input id="lyrics_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                       aria-describedby="search-addon" @bind="@SongValue" @oninput="@((e) => { SongValue = (string)e.Value; })" />
+                <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchLyrics">
+                    <i class="oi oi-magnifying-glass"></i>
+                </button>
+            </div>
+
+            @if (lyrics == null)
+            {
+            }
+            else
+            {
+                try
+                {
+                    <p>@lyrics</p>
+
+                }
+                catch (Exception e)
+                {
+                    developerErrorMessage = e.Message;
+                    Console.WriteLine(developerErrorMessage);
+
+                }
+            }
         }
 
     }
@@ -45,34 +85,6 @@ else
         errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
 
     }
-
-    <h4>Search Song Lyrics</h4>
-
-    <div class="input-group rounded" style="width: 30em">
-        <input id="lyrics_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon" @bind="@SongValue" @oninput="@((e) => { SongValue = (string)e.Value; })" />
-        <button id="search-button" type="button" class="btn btn-primary" @onclick="SearchLyrics">
-            <i class="oi oi-magnifying-glass"></i>
-        </button>
-    </div>
-
-    @if (lyrics == null)
-    {
-    }
-    else
-    {
-        try
-        {
-            <p>@lyrics</p>
-
-        }
-        catch (Exception e)
-        {
-            developerErrorMessage = e.Message;
-            Console.WriteLine(developerErrorMessage);
-
-        }
-    }
 }
 
 
@@ -80,8 +92,8 @@ else
 
 @code {
     private string developerErrorMessage = "Nothing";
-    private string errorMessage = "Nothing";
-    private string CurrentValue { get; set; } = "blazor";
+    private string errorMessage { get; set; }
+    private string ArtistValue { get; set; } = "blazor";
     private string SongValue { get; set; }
 
 
@@ -164,7 +176,7 @@ else
 
         try
         {
-            using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + CurrentValue + "/" + SongValue);
+            using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + ArtistValue + "/" + SongValue);
             l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
             lyrics = l1.lyrics;
         }
@@ -175,12 +187,12 @@ else
 
     }
 
-    protected async Task SearchClick()
+    protected async Task SearchArtists()
     {
         try
         {
 
-            HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + CurrentValue);
+            HttpResponseMessage response = await Http.GetAsync("https://theaudiodb.com/api/v1/json/2/search.php?s=" + ArtistValue);
             string dtls = await response.Content.ReadAsStringAsync();
 
             AllArtists allArtists = JsonConvert.DeserializeObject<AllArtists>(dtls);
@@ -190,6 +202,10 @@ else
             artistName2 = allArtists2.Artists[0].strArtist;
 
 
+            if (allArtists != null)
+            {
+                errorMessage = " ";
+            }
 
 
         }
