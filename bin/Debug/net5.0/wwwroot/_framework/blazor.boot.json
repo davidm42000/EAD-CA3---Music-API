@@ -196,13 +196,13 @@
       "mscorlib.dll": "sha256-+dB3Q0YubUPF1oZDMVZn6ZCiRkzRomtLoq51T5FocJk=",
       "netstandard.dll": "sha256-dOHF0zANIyA4WS496iWrAkTuEFWSWrXJjZj2pQQHrMA=",
       "System.Private.CoreLib.dll": "sha256-C96+zv+mWW0XzMG520oRgAG1lHVY8xzWGc6oc6rFjws=",
-      "EAD CA3 - Music API.dll": "sha256-IuYaT92tV9P6UUkqnD3DW6aP\/gAeNJqNUEaHCO6Aj6g="
+      "EAD CA3 - Music API.dll": "sha256-dKYOM3Dlh48AN+4BnkckEI2eDepLnf++SSEEAQ1Pt0U="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "EAD CA3 - Music API.pdb": "sha256-aHw5ZrwBlKydAQeE4GzI0OnTYwjsuhV+7XgXB1MRl3U="
+      "EAD CA3 - Music API.pdb": "sha256-BNuFHndUBOZ6JmdS0oIBqXTsXVDyPUjncYe2R9n1gm8="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-ir9YCVnnk7popgsYUkvitfGA4WpkP1ydPh\/ENHnxGys=",

@@ -118,11 +118,11 @@ using Newtonsoft.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 95 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
+#line 97 "C:\Users\david\Downloads\EAD CA3 - Music API\Pages\SearchArtist.razor"
        
 
     private string developerErrorMessage = "Nothing";
-    private string errorMessage { get; set; }
+    private string ErrorMessage { get; set; }
     private string ArtistValue { get; set; } = "blazor";
     private string SongValue { get; set; }
 
@@ -209,10 +209,16 @@ using Newtonsoft.Json;
             using var httpResponse = await Http.GetAsync("https://api.lyrics.ovh/v1/" + ArtistValue + "/" + SongValue);
             l1 = await httpResponse.Content.ReadFromJsonAsync<Lyrics>();
             lyrics = l1.lyrics;
+
+            if (l1 != null)
+            {
+                ErrorMessage = " ";
+            }
         }
         catch (Exception e)
         {
             developerErrorMessage = e.Message;
+            ErrorMessage = "Lyrics Not Found";
         }
 
     }
@@ -234,7 +240,7 @@ using Newtonsoft.Json;
 
             if (allArtists != null)
             {
-                errorMessage = " ";
+                ErrorMessage = " ";
             }
 
 
@@ -243,7 +249,7 @@ using Newtonsoft.Json;
         {
             developerErrorMessage = e.Message;
             Console.WriteLine(developerErrorMessage);
-            errorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
+            ErrorMessage = "There is no Artist in our Database with that name, Please spell the artist correctly";
 
         }
 
